@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="layout :: head"></head>
 
 <body>
@@ -66,10 +67,61 @@
 						</tbody>
 					</table>
 				</div>
+				<!--<nav aria-label="Page navigation example">-->
+					<!--<ul class="pagination">-->
+						<!--<li class="page-item">-->
+							<!--<a class="page-link" href="#" aria-label="Previous">-->
+								<!--<span aria-hidden="true">&laquo;</span>-->
+								<!--<span class="sr-only">Previous</span>-->
+							<!--</a>-->
+						<!--</li>-->
+
+						<!--<li th:each="i,iterStat : ${totalPage}" class="page-item pagination">-->
+							<!--<a class="page-link " href="#">${i}</a>-->
+						<!--</li>-->
+						<!--<li class="page-item">-->
+							<!--<a class="page-link" href="#" aria-label="Next">-->
+								<!--<span aria-hidden="true">&raquo;</span>-->
+								<!--<span class="sr-only">Next</span>-->
+							<!--</a>-->
+						<!--</li>-->
+					<!--</ul>-->
+				<!--</nav>-->
 			</th:block>
+		</div>
+		<div sec:authorize="isAuthenticated()">
+			Logged user: <span sec:authentication="name"></span> <br/>
+			Roles: <span sec:authentication="principal.authorities"></span>
+			<form action="#" th:action="@{/logout}" method="POST">
+				<button type="submit">Logout</button>
+			</form>
 		</div>
 	</div><!-- /.container -->
 
+<!--<script>-->
+	<!--$('pagination').on('click', '.page-item', function () {-->
+		<!--$('.page-item').removeClass('active');-->
+		<!--$(this).addClass('active');-->
+		<!--dealPage = $(this).text();-->
+		<!--productStart = (dealPage - 1) * 2;-->
+		<!--$.ajax({-->
+			<!--url: "/api/getListProductByPage",-->
+			<!--type: "GET",-->
+			<!--data: {-->
+				<!--productStart: productStart,-->
+
+			<!--},-->
+			<!--dataType: 'html',-->
+			<!--success: function (res) {-->
+				<!--$('#body-table').html(res);-->
+			<!--},-->
+			<!--error: function (res) {-->
+				<!--console.log();-->
+			<!--},-->
+		<!--})-->
+	<!--})-->
+
+<!--</script>-->
 
 </body>
 </html>

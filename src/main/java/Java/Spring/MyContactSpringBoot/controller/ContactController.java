@@ -3,8 +3,10 @@ package Java.Spring.MyContactSpringBoot.controller;
 import Java.Spring.MyContactSpringBoot.entity.Contact;
 import Java.Spring.MyContactSpringBoot.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class ContactController {
@@ -21,7 +24,7 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
-    @GetMapping("/contact")
+    @GetMapping({"/contact","/"})
     public String list(Model model) {
         model.addAttribute("contacts", contactService.findAll());
         return "list";
@@ -64,5 +67,32 @@ public class ContactController {
         redirect.addFlashAttribute("successMessage", "Deleted contact successfully!");
         return "redirect:/contact";
     }
+
+//    @GetMapping("getListProductByPage")
+//    public String getListProductByPage(@RequestParam Integer productStart, ModelMap modelMap) {
+//
+//        Page<Contact> page = contactService.page();
+//        List<ProductEntity> listproduct = productService.getListAllAndLimit(productStart);
+//        List<ProductEntity> productEntityListAll = productService.getListAllAndLimit(-1);
+//        double totalPage = Math.ceil((double) productEntityListAll.size() / 2);
+//        modelMap.addAttribute("totalPage", totalPage);
+//        modelMap.addAttribute("listproduct", listproduct);
+//
+//        List<CatalogEntity> catalogEntities = catalogService.getListAll();
+//        modelMap.addAttribute("listCatalog", catalogEntities);
+//
+//        return "addproduct";
+//    }
+
+    @GetMapping("/403")
+    public String accessDenied() {
+        return "403";
+    }
+
+    @GetMapping("/login")
+    public String getLogin() {
+        return "login";
+    }
+
 
 }
